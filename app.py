@@ -331,14 +331,12 @@ def checkout():
         print("데이터베이스 연결 오류입니다")
         return {}
     
-    sql = """
-        INSERT INTO attendance (sno, sname, classno)
-        SELECT sno, sname, classno FROM studentinfo WHERE sno = %s
-    """
+    sql = "INSERT INTO attendance (sno, classno) SELECT sno, classno FROM studentinfo WHERE sno =" + sno
 
-    dbms.RunSQL(sql, (sno))
+    dbms.RunSQL(sql)
     dbms.CloseQuery()
     dbms.DBClose()
+    return 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
